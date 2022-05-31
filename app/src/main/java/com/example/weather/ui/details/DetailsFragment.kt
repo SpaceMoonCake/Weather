@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.weather.databinding.DeteilsFragmentBinding
+import com.example.weather.R
+import com.example.weather.databinding.DetailsFragmentBinding
 import com.example.weather.model.entities.Weather
 
-class DeteilsFragment : Fragment() {
-    private var _binding: DeteilsFragmentBinding? = null
+class DetailsFragment : Fragment() {
+    private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -49,8 +50,8 @@ class DeteilsFragment : Fragment() {
     companion object {
         const val BUNDLE_EXTRA = "weather"
 
-        fun newInstance(bundle: Bundle): DeteilsFragment {
-            val fragment = DeteilsFragment()
+        fun newInstance(bundle: Bundle): DetailsFragment {
+            val fragment = DetailsFragment()
             fragment.arguments = bundle
             return fragment
         }

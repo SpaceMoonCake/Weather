@@ -10,7 +10,7 @@ import com.example.weather.databinding.MainFragmentBinding
 import com.example.weather.model.AppState
 import com.example.weather.model.entities.Weather
 import com.example.weather.ui.adapters.MainFragmentAdapter
-import com.example.weather.ui.details.DeteilsFragment
+import com.example.weather.ui.details.DetailsFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
@@ -25,8 +25,7 @@ class MainFragment : Fragment() {
     private var isDataSetRus = true
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
@@ -65,10 +64,10 @@ class MainFragment : Fragment() {
                         val manager = activity?.supportFragmentManager
                         manager?.let { manager ->
                             val bundle = Bundle().apply {
-                                putParcelable(DeteilsFragment.BUNDLE_EXTRA, weather)
+                                putParcelable(DetailsFragment.BUNDLE_EXTRA, weather)
                             }
                             manager.beginTransaction()
-                                .add(R.id.container, DeteilsFragment.newInstance(bundle))
+                                .add(R.id.container, DetailsFragment.newInstance(bundle))
                                 .addToBackStack("")
                                 .commitAllowingStateLoss()
                         }
@@ -84,17 +83,12 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 progressBar.visibility = View.GONE
                 Snackbar
-                    .make(
-                        binding.mainFragmentFAB,
-                        getString(R.string.error),
-                        Snackbar.LENGTH_INDEFINITE
-                    )
+                    .make(binding.mainFragmentFAB, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

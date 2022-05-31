@@ -12,6 +12,8 @@ class MainViewModel (private val repository: Repository) : ViewModel() {
 
     fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(true)
 
+    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(false)
+
     private fun getDataFromLocalSource(isRussian: Boolean) {
         localLiveData.value = AppState.Loading
         Thread {
@@ -25,10 +27,4 @@ class MainViewModel (private val repository: Repository) : ViewModel() {
             )
         }.start()
     }
-
-    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(false)
-
-
-
-
 }

@@ -15,19 +15,23 @@ class MainFragmentAdapter (private val itemClickListener: MainFragment.OnItemVie
     private lateinit var binding: FragmentMainRecyclerItemBinding
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setWeather(data: List<Weather>){
+    fun setWeather(data: List<Weather>) {
         weatherData = data
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        binding = FragmentMainRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        binding = FragmentMainRecyclerItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return MainViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bind(weatherData[position])
-}
+    }
+
+    override fun getItemCount() = weatherData.size
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(weather: Weather) = with(binding) {
@@ -35,7 +39,5 @@ class MainFragmentAdapter (private val itemClickListener: MainFragment.OnItemVie
             root.setOnClickListener { itemClickListener.onItemViewClick(weather) }
         }
     }
-
-    override fun getItemCount() = weatherData.size
 
 }
