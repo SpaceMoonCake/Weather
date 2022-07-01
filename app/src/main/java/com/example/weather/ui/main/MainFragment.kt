@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.example.weather.R
 import com.example.weather.databinding.MainFragmentBinding
@@ -14,6 +15,7 @@ import com.example.weather.ui.details.DetailsFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
+import com.example.weather.shawKeyboard
 
 
 class MainFragment : Fragment() {
@@ -25,7 +27,8 @@ class MainFragment : Fragment() {
     private var isDataSetRus = true
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
@@ -83,12 +86,17 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 progressBar.visibility = View.GONE
                 Snackbar
-                    .make(binding.mainFragmentFAB, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
+                    .make(
+                        binding.mainFragmentFAB,
+                        getString(R.string.error),
+                        Snackbar.LENGTH_INDEFINITE
+                    )
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
